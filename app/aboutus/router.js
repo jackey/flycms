@@ -1,6 +1,6 @@
 define(function () {
 	function getSelfPath() {
-		var name = 'home';
+		var name = 'aboutus';
 		_.each(window.gypsii.modules, function (module) {
 			if (name == module['name']) {
 				defaultSelfPath = module['path'] + module['name'] + '/';
@@ -10,14 +10,14 @@ define(function () {
 	}
 	return {
 		routes: {
-			'home': 'homeHandler',
+			'aboutus': 'aboutusHandler',
 		},
-		homeHandler: function () {
-			var modulepath = getSelfPath();
+		aboutusHandler: function () {
+			var modulepath = getSelfPath(this.modules);
 			var self = this;
 			require([modulepath + 'view'], function (Views) {
-				var list = new Views.List();
-				list.render();
+				var aboutus = new Views.Aboutus();
+				aboutus.render();
 			});
 		}
 	}

@@ -1,0 +1,11 @@
+<app name="gypsiifly">
+	<theme name="default" folder="theme/"></theme>
+	<modules>
+		<!-- 系统模块 -->
+		<module folder="app/">home</module>
+		<module folder="app/">aboutus</module>
+	</modules>
+	<plugins>
+		<!-- 系统插件 -->
+	</plugins>
+</app>

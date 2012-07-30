@@ -16,15 +16,11 @@ define(function () {
 		return defaultSelfPath;
 	}
 
-	var List = Backbone.View.extend({
+	var Aboutus = Backbone.View.extend({
 		render: function () {
 			var view = this;
-			require([getTpl('home'), getSelfPath() + 'model'], function (tpl, Model) {
-				var todoList = new Model.TodoList();
-				todoList.add({todo: 'go work'});
-				todoList.add({todo: 'go lunch'});
-				todoList.add({todo: 'go Dinner'});
-				var compiled = _.template(tpl, {todoList: todoList});
+			require([getTpl('aboutus')], function (tpl) {
+				var compiled = _.template(tpl);
 				$(view.el).empty().append(compiled);
 			});
 		},
@@ -35,6 +31,6 @@ define(function () {
 	});
 
 	return {
-		List: List
+		Aboutus: Aboutus
 	}
 });

@@ -1,0 +1,9 @@
+<ul>
+	<% todoList.each(function (model) { %>
+	  <li><%= model.get('todo') %></li>
+	<% }) %>
+</ul>
+<form action="/#addtodo">
+	<input type="text" placehoder="todo" name="todo"/>
+	<input type="button" name="addtodo" value="Todo" />
+</form>
