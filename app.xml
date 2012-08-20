@@ -4,8 +4,10 @@
 		<!-- 系统模块 -->
 		<module folder="app/">home</module>
 		<module folder="app/">aboutus</module>
+		<module folder="app/">login</module>
 	</modules>
 	<plugins>
-		<!-- 系统插件 -->
+		<plugin folder="plugins" entry="plugin" name="example" />
+		<plugin folder="plugins" entry="user" name="user" />
 	</plugins>
 </app>

@@ -1,23 +1,30 @@
-// 1. 加载系统必须模块
-
-// 2. 设置系统router
-
-// 3. 查找模块匹配router
-
-// 4. 执行
-
 require.config({
+	baseUrl: '/',
 	paths: {
 		backbone: 'lib/backbone',
 		jquery: 'lib/jquery',
 		underscore: 'lib/underscore',
 		templates: 'theme/default',
-		app: 'app'
+		app: 'app',
+		gypsii: 'plugins/gypsii/gypsii',
+		swipe: 'plugins/swipe/swipe',
+		layoutmanager: 'lib/backbone.layoutmanager',
+		queryparams: 'lib/backbone.queryparams',
+		jquerycookie: 'lib/jquery.cookie'
 	},
 	shim: {
+		layoutmanager: ['backbone'],
+		queryparams: ['backbone'],
+		jquerycookie: ['jquery'],
 		backbone: {
-			deps: ['underscore', 'jquery'],
+			deps: ['underscore', 'jquery', 'jquerycookie'],
 			exports: 'Backbone'
+		},
+		underscore: {
+			exports: '_'
+		},
+		jquery: {
+			exports: '$'
 		}
 	}
 });
