@@ -1,4 +1,4 @@
-define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
+define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 	// Copy from Olex.
 	var	Mask = window.Mask = {
 		Maskid:"mask",
@@ -86,7 +86,7 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 		}
 	}
 
-	function Gypsii() {
+	function Htmlfly() {
 		this.appXML = {};
 		this.layouts = {};
 		this.server = '/backend/index.php';
@@ -95,23 +95,23 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 		this.cache = localstorage();
 	}
 
-	Gypsii.prototype.setAppXML = function (xml) {
+	Htmlfly.prototype.setAppXML = function (xml) {
 		_.extend(this.appXML, xml);
 	}
 
-	Gypsii.prototype.setAppRouter = function (router) {
+	Htmlfly.prototype.setAppRouter = function (router) {
 		this.appRouter = router; 
 	}
 
-	Gypsii.prototype.getAppRouter = function () {
+	Htmlfly.prototype.getAppRouter = function () {
 		return this.appRouter;
 	}
 
-	Gypsii.prototype.getAppXML = function () {
+	Htmlfly.prototype.getAppXML = function () {
 		return this.appXML;
 	}
 
-	Gypsii.prototype.getPath = function (type, name) {
+	Htmlfly.prototype.getPath = function (type, name) {
 		name || (name = '');
 		var modules = this.appXML.modules;
 		var path = '';
@@ -136,11 +136,11 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 		return path;
 	}
 
-	Gypsii.prototype.pageTransition = function (to) {
+	Htmlfly.prototype.pageTransition = function (to) {
 		// TODO:我需要更优美的页面效果
 	}
 
-	Gypsii.prototype.setLayout = function (layout) {
+	Htmlfly.prototype.setLayout = function (layout) {
 		if (!_.isObject(layout)) return false;
 
 		_.each(layout, function (value, key) {
@@ -148,7 +148,7 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 		}, this);
 	}
 
-	Gypsii.prototype.getLayout = function (name) {
+	Htmlfly.prototype.getLayout = function (name) {
 		name || (name = "normal");
 		if (!_.isUndefined(this.layouts[name])) {
 			return this.layouts[name];
@@ -156,19 +156,19 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 		return false;
 	}
 
-	Gypsii.prototype.url = function(path, options) {
+	Htmlfly.prototype.url = function(path, options) {
 		options || (options = {});
 		return '/#/'+ Backbone.Router.prototype.toFragment.apply(new Backbone.Router(), arguments);
 	}
 
-	Gypsii.prototype.goto = function (path, options) {
+	Htmlfly.prototype.goto = function (path, options) {
 		options || (options = {});
 		var url = Backbone.Router.prototype.toFragment.apply(new Backbone.Router(), arguments);
 		var appRouter = this.getAppRouter();
 		appRouter.navigate(url, {trigger: true, replace: true});
 	}
 
-	Gypsii.prototype.getTpl = function (name) {
+	Htmlfly.prototype.getTpl = function (name) {
 		if (typeof name == 'undefined') return false;
 		var themePath = this.appXML.system.theme.folder + this.appXML.system.theme.name;
 		return 'text!' + themePath + '/' + name + '.html';
@@ -180,7 +180,7 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 	 * 我们也允许用户从data传递sid 来覆盖掉默认的cookie sid.
 	 * TODO:我们也要做一个token, 来确定访问是从我们自己的网站 而不是第三方过来.
 	 */
-	Gypsii.prototype.jsonCall = function (cmd, data, callback) {
+	Htmlfly.prototype.jsonCall = function (cmd, data, callback) {
 		var self = this;
 		var sid = $.cookie('sid');
 		if (data.sid) {
@@ -215,19 +215,19 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 		});
 	}
 
-	Gypsii.prototype.parseJSON = function (str) {
+	Htmlfly.prototype.parseJSON = function (str) {
 		if (!str) str = '';
 		return $.parseJSON(str);
 	}
 
-	Gypsii.prototype.stringify = function (json) {
+	Htmlfly.prototype.stringify = function (json) {
 		return JSON.stringify(json);
 	}
 
 	/**
 	 * 载入一个plugin.
 	 */
-	Gypsii.prototype.loadPlugin = function (name, fn) {
+	Htmlfly.prototype.loadPlugin = function (name, fn) {
 		fn || (fn = function () {});
 		if (typeof name == 'undefined') fn(null);
 		var path = this.getPath('plugin', name);
@@ -236,5 +236,9 @@ define(['jquery', 'swipe', 'queryparams', 'jquerycookie'], function ($) {
 		});
 	}
 
-	return new Gypsii();
+	Htmlfly.prototype.error = function (msg) {
+		console.log(msg);
+	};
+
+	return new Htmlfly();
 });

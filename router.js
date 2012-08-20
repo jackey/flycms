@@ -1,11 +1,11 @@
-define(['backbone', 'jquery', 'gypsii'] ,function (backbone, $, gypsii) {
+define(['backbone', 'jquery', 'htmlfly', 'underscore'] ,function (backbone, $, htmlfly, _) {
 	return {
 		initialize: function () {
 			var appRoutes = {},
 				appHandlers = {},
 				AppRouter = Backbone.Router.extend({});
 
-			var tmpModules = _.clone(gypsii.getAppXML()['modules']);
+			var tmpModules = _.clone(htmlfly.getAppXML()['modules']);
 			(function loadModule() {
 				var entity = tmpModules.shift();
 				if (_.isUndefined(entity)) {
@@ -19,7 +19,7 @@ define(['backbone', 'jquery', 'gypsii'] ,function (backbone, $, gypsii) {
 				else {
 					require([entity.folder + entity.name + '/router'], function (module) {
 						//加载路由.
-						if (!_.isUndefined(module.routes)) {
+						if (typeof module['routes'] != 'undefined') {
 							var routes = _.keys(module.routes);
 							_.each(routes, function (route) {
 								// 设置路由处理事件的执行环境.
@@ -33,15 +33,16 @@ define(['backbone', 'jquery', 'gypsii'] ,function (backbone, $, gypsii) {
 							});
 						}
 
-
 						loadModule();
+					}, function (err) {
+						htmlfly.error(err.toString());
 					});
 				}
 			})();
 
 			function callbackWhenLoadedModule() {
 				var router = new AppRouter();
-				gypsii.setAppRouter(router);
+				htmlfly.setAppRouter(router);
 				Backbone.history.start();
 			}
 		}

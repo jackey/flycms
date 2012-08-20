@@ -1,10 +1,9 @@
-<app name="gypsiifly">
+<app name="htmlflyfly">
 	<theme name="default" folder="theme/"></theme>
 	<modules>
 		<!-- 系统模块 -->
-		<module folder="app/">home</module>
-		<module folder="app/">aboutus</module>
-		<module folder="app/">login</module>
+		<module folder="app/">user</module>
+		<module folder="app/">system</module>
 	</modules>
 	<plugins>
 		<plugin folder="plugins" entry="plugin" name="example" />

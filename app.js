@@ -1,4 +1,4 @@
-define(['router', 'jquery', 'gypsii', 'text!app.xml', 'layoutmanager'], function (Router, $, gypsii, appXML) {
+define(['router', 'jquery', 'htmlfly', 'text!app.xml', 'layoutmanager'], function (Router, $, htmlfly, appXML) {
 	//首先读取app.xml 拿到系统主题，模块的配置.
 	var xmldoc = $.parseXML(appXML);
 	var xml = $(xmldoc);
@@ -18,11 +18,11 @@ define(['router', 'jquery', 'gypsii', 'text!app.xml', 'layoutmanager'], function
 	system.name = xml.find('app').attr('name');
 	system.theme = {name: xml.find('theme').attr('name'), folder: xml.find('theme').attr('folder')};
 
-	//把系统配置放到gypsii全局对象去，这样就可以在所有的模块里面轻松的获取到.
-	gypsii.setAppXML({system: system, modules: modules, plugins: plugins});
+	//把系统配置放到htmlfly全局对象去，这样就可以在所有的模块里面轻松的获取到.
+	htmlfly.setAppXML({system: system, modules: modules, plugins: plugins});
 
-	// 对Backbone.[View][Model][Collection][Router]做gypsii特殊化
-	Backbone.GypsiiView = Backbone.View.extend({
+	// 对Backbone.[View][Model][Collection][Router]做htmlfly特殊化
+	Backbone.HtmlflyView = Backbone.View.extend({
 		destory: function () {
 		    this.undelegateEvents();
 
@@ -36,16 +36,16 @@ define(['router', 'jquery', 'gypsii', 'text!app.xml', 'layoutmanager'], function
 		processTemplateValues: function (data) {
 			data || (data = {});
 			return _.extend(data, {
-				miscp: gypsii.getPath('theme', 'default') + "/misc",
-				gypsii: gypsii
+				miscp: htmlfly.getPath('theme', 'default') + "/misc",
+				htmlfly: htmlfly
 			});
 		}
 	});
 	//一个主题一般有layout, 包括header, footer 部分.
 	//在这里把Layout 视图事先创建，在各个模块调用就无需关心layout细节了.
 	// TODO: 现在这种方式是不灵活的，将来可能会让layout 定义放在modules或者theme里面去.
-	require([gypsii.getTpl('footer'), gypsii.getTpl('header'), gypsii.getTpl('layout')], function (footerTpl, headerTpl, layoutTpl) {
-		var FooterView = Backbone.GypsiiView.extend({
+	require([htmlfly.getTpl('footer'), htmlfly.getTpl('header'), htmlfly.getTpl('layout')], function (footerTpl, headerTpl, layoutTpl) {
+		var FooterView = Backbone.HtmlflyView.extend({
 			template: footerTpl,
 			render: function () {
 				if (_.isFunction(this.destory)) {
@@ -70,12 +70,12 @@ define(['router', 'jquery', 'gypsii', 'text!app.xml', 'layoutmanager'], function
 				}
 			},
 			render: function (template, context) {
-				context = Backbone.GypsiiView.prototype.processTemplateValues.call(this, context);
+				context = Backbone.HtmlflyView.prototype.processTemplateValues.call(this, context);
     			return template(context);
 			}
 		});
 
-		gypsii.setLayout({
+		htmlfly.setLayout({
 			// 这里我用normal去做为默认的Layout.
 			// 还可以定义其他的Layout.
 			'normal': Backbone.LayoutManager.extend({

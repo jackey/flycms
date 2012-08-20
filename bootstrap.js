@@ -6,8 +6,7 @@ require.config({
 		underscore: 'lib/underscore',
 		templates: 'theme/default',
 		app: 'app',
-		gypsii: 'plugins/gypsii/gypsii',
-		swipe: 'plugins/swipe/swipe',
+		htmlfly: 'plugins/htmlfly/htmlfly',
 		layoutmanager: 'lib/backbone.layoutmanager',
 		queryparams: 'lib/backbone.queryparams',
 		jquerycookie: 'lib/jquery.cookie'
