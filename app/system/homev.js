@@ -1,8 +1,8 @@
-define(['htmlfly'], function (htmlfly) {
+define(['fly'], function (fly) {
 	// 首页视图.
 	return function (callback) {
-		require([htmlfly.getTpl('home')], function (tpl) {
-			var HomeView = Backbone.HtmlflyView.extend({
+		require([fly.getTpl('home')], function (tpl) {
+			var HomeView = Backbone.FlyView.extend({
 				template: tpl,
 				render: function (manage) {
 					return manage(this).render({});

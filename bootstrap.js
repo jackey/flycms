@@ -6,7 +6,7 @@ require.config({
 		underscore: 'lib/underscore',
 		templates: 'theme/default',
 		app: 'app',
-		htmlfly: 'plugins/htmlfly/htmlfly',
+		fly: 'plugins/core/fly',
 		layoutmanager: 'lib/backbone.layoutmanager',
 		queryparams: 'lib/backbone.queryparams',
 		jquerycookie: 'lib/jquery.cookie'

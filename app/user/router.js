@@ -1,3 +1,3 @@
-define(['htmlfly'], function (htmlfly) {
+define(['fly'], function (fly) {
 	return {};
 });

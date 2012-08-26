@@ -1,11 +1,11 @@
-define(['backbone', 'jquery', 'htmlfly', 'underscore'] ,function (backbone, $, htmlfly, _) {
+define(['backbone', 'jquery', 'fly', 'underscore'] ,function (backbone, $, fly, _) {
 	return {
 		initialize: function () {
 			var appRoutes = {},
 				appHandlers = {},
 				AppRouter = Backbone.Router.extend({});
 
-			var tmpModules = _.clone(htmlfly.getAppXML()['modules']);
+			var tmpModules = _.clone(fly.getAppXML()['modules']);
 			(function loadModule() {
 				var entity = tmpModules.shift();
 				if (_.isUndefined(entity)) {
@@ -35,14 +35,14 @@ define(['backbone', 'jquery', 'htmlfly', 'underscore'] ,function (backbone, $, h
 
 						loadModule();
 					}, function (err) {
-						htmlfly.error(err.toString());
+						fly.error(err.toString());
 					});
 				}
 			})();
 
 			function callbackWhenLoadedModule() {
 				var router = new AppRouter();
-				htmlfly.setAppRouter(router);
+				fly.setAppRouter(router);
 				Backbone.history.start();
 			}
 		}

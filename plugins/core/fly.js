@@ -86,7 +86,7 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 		}
 	}
 
-	function Htmlfly() {
+	function Fly() {
 		this.appXML = {};
 		this.layouts = {};
 		this.server = '/backend/index.php';
@@ -95,23 +95,23 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 		this.cache = localstorage();
 	}
 
-	Htmlfly.prototype.setAppXML = function (xml) {
+	Fly.prototype.setAppXML = function (xml) {
 		_.extend(this.appXML, xml);
 	}
 
-	Htmlfly.prototype.setAppRouter = function (router) {
+	Fly.prototype.setAppRouter = function (router) {
 		this.appRouter = router; 
 	}
 
-	Htmlfly.prototype.getAppRouter = function () {
+	Fly.prototype.getAppRouter = function () {
 		return this.appRouter;
 	}
 
-	Htmlfly.prototype.getAppXML = function () {
+	Fly.prototype.getAppXML = function () {
 		return this.appXML;
 	}
 
-	Htmlfly.prototype.getPath = function (type, name) {
+	Fly.prototype.getPath = function (type, name) {
 		name || (name = '');
 		var modules = this.appXML.modules;
 		var path = '';
@@ -136,11 +136,11 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 		return path;
 	}
 
-	Htmlfly.prototype.pageTransition = function (to) {
+	Fly.prototype.pageTransition = function (to) {
 		// TODO:我需要更优美的页面效果
 	}
 
-	Htmlfly.prototype.setLayout = function (layout) {
+	Fly.prototype.setLayout = function (layout) {
 		if (!_.isObject(layout)) return false;
 
 		_.each(layout, function (value, key) {
@@ -148,7 +148,7 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 		}, this);
 	}
 
-	Htmlfly.prototype.getLayout = function (name) {
+	Fly.prototype.getLayout = function (name) {
 		name || (name = "normal");
 		if (!_.isUndefined(this.layouts[name])) {
 			return this.layouts[name];
@@ -156,19 +156,19 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 		return false;
 	}
 
-	Htmlfly.prototype.url = function(path, options) {
+	Fly.prototype.url = function(path, options) {
 		options || (options = {});
 		return '/#/'+ Backbone.Router.prototype.toFragment.apply(new Backbone.Router(), arguments);
 	}
 
-	Htmlfly.prototype.goto = function (path, options) {
+	Fly.prototype.goto = function (path, options) {
 		options || (options = {});
 		var url = Backbone.Router.prototype.toFragment.apply(new Backbone.Router(), arguments);
 		var appRouter = this.getAppRouter();
 		appRouter.navigate(url, {trigger: true, replace: true});
 	}
 
-	Htmlfly.prototype.getTpl = function (name) {
+	Fly.prototype.getTpl = function (name) {
 		if (typeof name == 'undefined') return false;
 		var themePath = this.appXML.system.theme.folder + this.appXML.system.theme.name;
 		return 'text!' + themePath + '/' + name + '.html';
@@ -180,7 +180,7 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 	 * 我们也允许用户从data传递sid 来覆盖掉默认的cookie sid.
 	 * TODO:我们也要做一个token, 来确定访问是从我们自己的网站 而不是第三方过来.
 	 */
-	Htmlfly.prototype.jsonCall = function (cmd, data, callback) {
+	Fly.prototype.jsonCall = function (cmd, data, callback) {
 		var self = this;
 		var sid = $.cookie('sid');
 		if (data.sid) {
@@ -215,19 +215,19 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 		});
 	}
 
-	Htmlfly.prototype.parseJSON = function (str) {
+	Fly.prototype.parseJSON = function (str) {
 		if (!str) str = '';
 		return $.parseJSON(str);
 	}
 
-	Htmlfly.prototype.stringify = function (json) {
+	Fly.prototype.stringify = function (json) {
 		return JSON.stringify(json);
 	}
 
 	/**
 	 * 载入一个plugin.
 	 */
-	Htmlfly.prototype.loadPlugin = function (name, fn) {
+	Fly.prototype.loadPlugin = function (name, fn) {
 		fn || (fn = function () {});
 		if (typeof name == 'undefined') fn(null);
 		var path = this.getPath('plugin', name);
@@ -236,9 +236,9 @@ define(['jquery', 'queryparams', 'jquerycookie'], function ($) {
 		});
 	}
 
-	Htmlfly.prototype.error = function (msg) {
+	Fly.prototype.error = function (msg) {
 		console.log(msg);
 	};
 
-	return new Htmlfly();
+	return new Fly();
 });
