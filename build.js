@@ -10,6 +10,7 @@
 		queryparams: 'lib/backbone.queryparams',
 		jquerycookie: 'lib/jquery.cookie'
 	},
-	name: './bootstrap.js',
+	optimize: "none",
+	name: 'bootstrap.js',
 	out: 'production.js',
 })

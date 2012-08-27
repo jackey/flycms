@@ -1,5 +1,3 @@
-define(['./config'], function (config) {
-	require(['app'], function (App) {
-		App.initialize();
-	});
+define(['./config', './app'], function (config, App) {
+	App.initialize();
 });
