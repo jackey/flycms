@@ -10,7 +10,9 @@
 		queryparams: 'lib/backbone.queryparams',
 		jquerycookie: 'lib/jquery.cookie'
 	},
+	findNestedDependencies: true,
 	optimize: "none",
-	name: 'bootstrap.js',
+	name: 'lib/almond',
+	include: ['bootstrap'],
 	out: 'production.js',
 })
